@@ -1,6 +1,9 @@
 ## Version
 * Current: 0.1.0
 
+## Supported Integration
+* Graylog 3.x - Data adapters for Lookup Tables (HTTP JSONPath)
+
 ## Run Container
 
 * `docker build -t web_rbl:0.1.0 .`
@@ -21,3 +24,4 @@ This project use Http:BL https://www.projecthoneypot.org/httpbl_api.php. To cons
 * Configure exception when don't have DNS return.
 * Use LDAP to generate a own PRT (like DNSBL), using a "global" blacklist and a own blacklist.
 * Return own LDAP record in API too.
+* Write Graylog integration document (How to) (E.q.: https://github.com/Graylog2/graylog-plugin-pipeline-processor/issues/27).
