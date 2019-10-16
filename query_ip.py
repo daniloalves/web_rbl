@@ -25,7 +25,7 @@ def analyse(return_ip):
     else:
         sugestion = 'Pass'
     response = f'IP: {return_ip} || Status: {status_name} || Sugestion: {sugestion}'
-    response = '{"IP":"%s","Status":"%s","Sugestion":"%s"}'%(return_ip,status_name,sugestion)
+    response = '{"info":{"IP":"%s","Status":"%s","Sugestion":"%s"} }'%(return_ip,status_name,sugestion)
     print(response)
     return response
 
@@ -37,7 +37,7 @@ def help(script_name='script.py'):
 def main(ip):
     reverse_ip = ip.split('.')
     response = json.loads(query(f"{reverse_ip[3]}.{reverse_ip[2]}.{reverse_ip[1]}.{reverse_ip[0]}"))
-    response['IP'] = ip
+    response['info']['IP'] = ip
     return response
 
 if __name__ == "__main__":
