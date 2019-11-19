@@ -12,9 +12,15 @@ if 'DNSBL_TOKEN' in os.environ:
 THREAT = {0:'Search Engine',1:'Suspicious',2:'Harvester',4:'Comment Spammer'}
 
 def query(reverse_ip):
-    reverse_dns = f"{TOKEN}.{reverse_ip}.{URI}"
-    addr1 = socket.gethostbyname(reverse_dns)
-    return analyse(addr1)
+    try:
+        reverse_dns = f"{TOKEN}.{reverse_ip}.{URI}"
+        addr1 = socket.gethostbyname(reverse_dns)
+        return analyse(addr1)
+    except socket.gaierror as e:
+        print(f'[INFO] IP not found! Sound Good!')
+        return analyse('127.0.0.0')
+    except Exception as e:
+        print(f'[ERROR] {e}')
 
 def analyse(return_ip):
     status_ip = return_ip.split('.')[-1]
