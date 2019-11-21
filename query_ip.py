@@ -50,6 +50,7 @@ def main(ip):
     except Exception as e:
         log(e,'error')
         log(f'Try split to reverse: {ip}', 'error')
+        log(f'Query function response: {response}','error')
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
