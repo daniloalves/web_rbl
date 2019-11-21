@@ -4,6 +4,7 @@ import socket
 import sys
 import json
 import os
+from commons import log
 
 URI = 'dnsbl.httpbl.org'
 TOKEN = ''
@@ -17,10 +18,10 @@ def query(reverse_ip):
         addr1 = socket.gethostbyname(reverse_dns)
         return analyse(addr1)
     except socket.gaierror as e:
-        print(f'[INFO] IP not found! Sound Good!')
+        log(f'IP not found! Sound Good!','debug')
         return analyse('127.0.0.0')
     except Exception as e:
-        print(f'[ERROR] {e}')
+        log(f'{e}','error')
 
 def analyse(return_ip):
     status_ip = return_ip.split('.')[-1]
@@ -41,13 +42,16 @@ def help(script_name='script.py'):
     exit()
 
 def main(ip):
-    reverse_ip = ip.split('.')
-    response = json.loads(query(f"{reverse_ip[3]}.{reverse_ip[2]}.{reverse_ip[1]}.{reverse_ip[0]}"))
-    response['info']['IP'] = ip
-    return response
+    try:
+        reverse_ip = ip.split('.')
+        response = json.loads(query(f"{reverse_ip[3]}.{reverse_ip[2]}.{reverse_ip[1]}.{reverse_ip[0]}"))
+        response['info']['IP'] = ip
+        return response
+    except Exception as e:
+        log(e,'error')
+        log(f'Try split to reverse: {ip}', 'error')
 
 if __name__ == "__main__":
-
     if len(sys.argv) < 2:
         help(sys.argv[0])
     ip = sys.argv[1]
